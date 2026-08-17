@@ -1,12 +1,11 @@
 Frozen-Evidence Factorial Audit for Multimodal ERC
 
-Candidate license: Mulan Permissive Software License, Version 2.
+Licensed under the Mulan Permissive Software License, Version 2.
 
 Copyright (c) 2026 YUHAN CHEN, SENNING WANG, YANGGE TIAN, JIANGUANG TU,
 and XIAOLEI LI.
 
-The copyright-holder list and order have been confirmed for this candidate.
-Application of the included license to the jointly held project-authored files
-still requires affirmative authorization from all five copyright holders. The
-license does not cover MELD, MELD-derived restricted artifacts, third-party
+All five copyright holders have affirmatively authorized application of the
+included license to the jointly held project-authored files in this release.
+The license does not cover MELD, MELD-derived restricted artifacts, third-party
 model weights, or third-party dependencies.

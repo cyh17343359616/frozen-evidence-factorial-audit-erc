@@ -51,9 +51,11 @@ def main() -> None:
     ]
     payload = {
         "schema": "ieee_access_data_safe_release_candidate_v1",
-        "status": "LOCAL_CANDIDATE_PUBLICATION_HOLD",
-        "publication_authorized": False,
-        "remote_repository_created": False,
+        "status": "AUTHORIZED_PRIVATE_REMOTE_READY_FOR_PUBLICATION",
+        "publication_authorized": True,
+        "remote_repository_created": True,
+        "remote_repository_url": "https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc",
+        "remote_visibility": "private",
         "tag_created": False,
         "archive_doi": None,
         "creators": [
@@ -66,7 +68,8 @@ def main() -> None:
         "creator_order_confirmed": True,
         "license": {
             "candidate": "Mulan Permissive Software License Version 2",
-            "application_to_current_files_confirmed": False,
+            "spdx_identifier": "MulanPSL-2.0",
+            "application_to_current_files_confirmed": True,
             "copyright_holders_confirmed": True,
             "copyright_holders": [
                 "YUHAN CHEN",

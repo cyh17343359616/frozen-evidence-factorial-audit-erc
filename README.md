@@ -6,11 +6,12 @@ It does not contain MELD media or transcripts, row-level identifiers or labels, 
 
 ## Publication status
 
-This candidate is not yet authorized for public upload. Read
-`PUBLICATION_HOLD.md` before creating a remote repository. The software creator
-order and copyright holders are confirmed and recorded in `CITATION.cff` and
-`NOTICE`. Joint license authorization, conflict-of-rights clearance, and final
-inventory approval remain open.
+The five software creators and joint copyright holders have authorized this
+data-safe inventory for public release under Mulan Permissive Software License
+Version 2. `PUBLICATION_HOLD.md` retains the closed authorization record and the
+boundary between authorization and objects that do not yet exist. The GitHub
+repository is currently private; no tag, GitHub Release, release date, or DOI is
+claimed until each is created and verified.
 
 ## Contents
 
@@ -49,7 +50,6 @@ The training/evaluation runners document the tested contracts but require separa
 ## License
 
 The repository carries the existing Mulan Permissive Software License Version 2
-text. All five confirmed copyright holders must affirmatively authorize its
-application to the current jointly held candidate before publication. The
-license does not apply to MELD or third-party artifacts that are not distributed
-here.
+text. All five confirmed copyright holders have authorized its application to
+the project-authored files in this release. The license does not apply to MELD
+or third-party artifacts that are not distributed here.

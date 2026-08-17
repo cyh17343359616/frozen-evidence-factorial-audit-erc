@@ -1,6 +1,6 @@
-# Publication hold
+# Publication authorization
 
-Do not make this directory public yet.
+Status: `AUTHORIZED_FOR_DATA_SAFE_PUBLICATION`
 
 The technical data-safety candidate has been assembled. The following facts are
 now confirmed for the software citation and copyright notice:
@@ -11,19 +11,20 @@ now confirmed for the software citation and copyright notice:
 3. XIAOLEI LI is the paper's corresponding author; this role does not change
    the software creator or copyright-holder order.
 
-The following publication gates remain open:
+The five software creators and joint copyright holders have confirmed that:
 
-1. Every copyright holder must affirmatively authorize application of Mulan PSL
-   v2 to the included jointly held project-authored files.
-2. The authors must confirm that no employer, laboratory, collaborator, prior
-   repository owner, or third-party license has conflicting rights.
-3. The authors must approve the final release inventory and all restricted-file
-   exclusions.
+1. Mulan Permissive Software License Version 2 may be applied to the included
+   jointly held project-authored files.
+2. No employer, laboratory, collaborator, prior repository owner, or third-party
+   license has conflicting rights.
+3. The final release inventory and restricted-file exclusions are approved.
 
 ORCID is optional for the software archive and remains omitted. Repository URL,
-commit, tag, release date, version, and DOI also remain omitted because none yet
-exists. After the three open gates are closed, rerun
-`python3 tools/build_release_manifest.py`, review the diff, and then follow
-`GITHUB_ZENODO_RELEASE_GUIDE.md`.
+version, and license metadata may now be published. The Git repository exists
+privately at
+`https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc`.
+The final release commit, tag, release date, and DOI must be recorded only after
+those objects actually exist and are independently verified.
 
-Creating this local directory is not publication authorization. No remote repository, tag, release, DOI, or upload currently exists for this candidate.
+This authorization does not assert that a public repository, tag, release, DOI,
+or Zenodo archive already exists.

@@ -4,6 +4,9 @@ message: >-
   in the repository after publication.
 title: Frozen-Evidence Factorial Audit for Multimodal ERC
 type: software
+version: 1.0.0
+license: MulanPSL-2.0
+repository-code: https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc
 authors:
   - given-names: YUHAN
     family-names: CHEN

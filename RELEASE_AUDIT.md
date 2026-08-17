@@ -4,10 +4,11 @@ Audit date: 2026-08-17 (Asia/Shanghai)
 
 ## Outcome
 
-The directory is a locally verified, data-safe release candidate. Remote
-publication remains on hold until the named creators, copyright holder(s),
-license authorization, release scope, and citation metadata are confirmed by
-the authors. See `PUBLICATION_HOLD.md`.
+The directory is a locally verified, data-safe release candidate. All five
+software creators and joint copyright holders have authorized publication of
+the approved inventory under Mulan Permissive Software License Version 2. The
+repository, tag, release, and DOI must still be verified as separate external
+objects before they are cited as existing.
 
 ## Offline checks completed
 

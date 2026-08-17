@@ -1,8 +1,10 @@
 {
   "schema": "ieee_access_data_safe_release_candidate_v1",
-  "status": "LOCAL_CANDIDATE_PUBLICATION_HOLD",
-  "publication_authorized": false,
-  "remote_repository_created": false,
+  "status": "AUTHORIZED_PRIVATE_REMOTE_READY_FOR_PUBLICATION",
+  "publication_authorized": true,
+  "remote_repository_created": true,
+  "remote_repository_url": "https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc",
+  "remote_visibility": "private",
   "tag_created": false,
   "archive_doi": null,
   "creators": [
@@ -15,7 +17,8 @@
   "creator_order_confirmed": true,
   "license": {
     "candidate": "Mulan Permissive Software License Version 2",
-    "application_to_current_files_confirmed": false,
+    "spdx_identifier": "MulanPSL-2.0",
+    "application_to_current_files_confirmed": true,
     "copyright_holders_confirmed": true,
     "copyright_holders": [
       "YUHAN CHEN",
@@ -35,8 +38,8 @@
     },
     {
       "path": "CITATION.cff",
-      "bytes": 1057,
-      "sha256": "186ce205f4b152beb9e1f8c91f7e520df5e7ee0b316e6f8dc325334dfb7a8772"
+      "bytes": 1181,
+      "sha256": "1022b2fa36b1726f9c38d16845ffedabb288f16f2b30da31bf7994ce37c42bcc"
     },
     {
       "path": "DATA_AVAILABILITY.md",
@@ -60,23 +63,23 @@
     },
     {
       "path": "NOTICE",
-      "bytes": 560,
-      "sha256": "0d5ec715011f5d71a6d92687eb70be5fc92e8a038672ce6a074c2687fe596eae"
+      "bytes": 484,
+      "sha256": "3f69179f92f7464899f4303084335ed2bf443e0670701c3af154bf611782b0a3"
     },
     {
       "path": "PUBLICATION_HOLD.md",
-      "bytes": 1384,
-      "sha256": "47c87593d6262a41f89566f5eae2b321b3742d853accabcc628ef9805b1eec83"
+      "bytes": 1386,
+      "sha256": "9cfaf5de66c8f9ead900aa25908ee43f59c6e23f455bb1f6ff0b60b3685044e4"
     },
     {
       "path": "README.md",
-      "bytes": 2999,
-      "sha256": "1d9de054dc2089a1682bb541be4b4048c4e03ed028fd21ce47e14d10dcd897b9"
+      "bytes": 3084,
+      "sha256": "c95cbffdbee9682089ffea2f9dc44b17882c7ecf164df09db45c460361595c3a"
     },
     {
       "path": "RELEASE_AUDIT.md",
-      "bytes": 1726,
-      "sha256": "c0f923d0567ec420bad5df722f56072b58ff0df7e8d51469a9e9063e23038a15"
+      "bytes": 1812,
+      "sha256": "00611652273d8d4d8508744b977f236189cee35b162b8ea2b9ca51ca7ded5f5a"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -400,8 +403,8 @@
     },
     {
       "path": "tools/build_release_manifest.py",
-      "bytes": 3598,
-      "sha256": "639286b5a703e299e2bf58615ad87e054257e65b6b34ef1810c83f325d0028d6"
+      "bytes": 3803,
+      "sha256": "875dde0662e0ee13fe24a3a8f68cc4bbb9f04d4c05cd024e82affa975d2792db"
     }
   ],
   "mandatory_exclusions": [
