@@ -11,7 +11,10 @@ data-safe inventory for public release under Mulan Permissive Software License
 Version 2. `PUBLICATION_HOLD.md` retains the closed authorization record and the
 boundary between authorization and objects that do not yet exist. The GitHub
 repository is public and was verified on 2026-08-17. No tag, GitHub Release,
-or release date is claimed until each is created and verified. Zenodo DOI
+or release date is claimed until each is created and verified. The frozen
+release target is `v1.0.0`; its existence and commit binding must be verified
+from the external Git ref and GitHub Release rather than self-attested inside
+the tagged source tree. Zenodo DOI
 `10.5281/zenodo.21981112` is reserved but is not registered until the software
 record is published.
 

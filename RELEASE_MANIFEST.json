@@ -1,12 +1,13 @@
 {
   "schema": "ieee_access_data_safe_release_candidate_v1",
-  "status": "PUBLIC_REPOSITORY_VERIFIED_ZENODO_DOI_RESERVED_READY_TO_TAG",
+  "status": "PUBLIC_REPOSITORY_VERIFIED_ZENODO_DOI_RESERVED_RELEASE_TARGET_FROZEN",
   "publication_authorized": true,
   "remote_repository_created": true,
   "remote_repository_url": "https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc",
   "remote_visibility": "public",
   "public_repository_verified_on": "2026-08-17",
-  "tag_created": false,
+  "release_target_tag": "v1.0.0",
+  "tag_verification": "external_git_ref_required_source_tree_does_not_self_attest_tag_existence",
   "archive_doi": "10.5281/zenodo.21981112",
   "archive_doi_status": "reserved_not_registered",
   "creators": [
@@ -90,8 +91,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3530,
-      "sha256": "415d102e27ea7f717d2de8aeafb8583900f92c5cde02db45495b848b981fc159"
+      "bytes": 3721,
+      "sha256": "f15c32c363a2d175d029d5b9cd7b743f48f11a6d09b6152f6be1e933acee46f8"
     },
     {
       "path": "RELEASE_AUDIT.md",
@@ -420,8 +421,8 @@
     },
     {
       "path": "tools/build_release_manifest.py",
-      "bytes": 4562,
-      "sha256": "81e87699b241a7f07d8ea97e1d7b7f525f7b8fb3fe98bebe360a4f63b0166450"
+      "bytes": 4685,
+      "sha256": "1fcf5232f375244aad2a8b062292702b6cbc071457a6207b8998ade46a9f5420"
     }
   ],
   "mandatory_exclusions": [

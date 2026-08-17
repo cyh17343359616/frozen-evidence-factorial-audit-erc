@@ -51,13 +51,14 @@ def main() -> None:
     ]
     payload = {
         "schema": "ieee_access_data_safe_release_candidate_v1",
-        "status": "PUBLIC_REPOSITORY_VERIFIED_ZENODO_DOI_RESERVED_READY_TO_TAG",
+        "status": "PUBLIC_REPOSITORY_VERIFIED_ZENODO_DOI_RESERVED_RELEASE_TARGET_FROZEN",
         "publication_authorized": True,
         "remote_repository_created": True,
         "remote_repository_url": "https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc",
         "remote_visibility": "public",
         "public_repository_verified_on": "2026-08-17",
-        "tag_created": False,
+        "release_target_tag": "v1.0.0",
+        "tag_verification": "external_git_ref_required_source_tree_does_not_self_attest_tag_existence",
         "archive_doi": "10.5281/zenodo.21981112",
         "archive_doi_status": "reserved_not_registered",
         "creators": [
