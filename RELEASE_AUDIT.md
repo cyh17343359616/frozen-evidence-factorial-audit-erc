@@ -12,7 +12,13 @@ objects before they are cited as existing.
 
 The public GitHub repository was verified on 2026-08-17 at
 `https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc`.
-No release tag or archive DOI existed at this audit point.
+Zenodo DOI `10.5281/zenodo.21981112` was reserved but not registered at this
+audit point. No release tag or Zenodo archive existed.
+
+The authors confirmed support from 武汉市2025年度重点研发计划, project number
+`2025020602030097`. `FUNDING.md` records the official Chinese project metadata,
+government evidence URL, and the boundary against inventing official English
+names.
 
 ## Offline checks completed
 

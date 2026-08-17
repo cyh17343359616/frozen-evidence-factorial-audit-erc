@@ -7,6 +7,10 @@ type: software
 version: 1.0.0
 license: MulanPSL-2.0
 repository-code: https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21981112
+    description: Reserved Zenodo DOI; registered when the software record is published
 authors:
   - given-names: YUHAN
     family-names: CHEN

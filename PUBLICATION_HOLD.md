@@ -24,7 +24,9 @@ version, and license metadata may now be published. The Git repository is
 public and was independently verified on 2026-08-17 at
 `https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc`.
 The final release commit, tag, release date, and DOI must be recorded only after
-those objects actually exist and are independently verified.
+those objects actually exist and are independently verified. Zenodo DOI
+`10.5281/zenodo.21981112` has been reserved; it is not yet registered or a
+resolving archive DOI.
 
-This authorization does not assert that a public repository, tag, release, DOI,
+This authorization does not assert that a tag, GitHub Release, registered DOI,
 or Zenodo archive already exists.

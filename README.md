@@ -11,7 +11,9 @@ data-safe inventory for public release under Mulan Permissive Software License
 Version 2. `PUBLICATION_HOLD.md` retains the closed authorization record and the
 boundary between authorization and objects that do not yet exist. The GitHub
 repository is public and was verified on 2026-08-17. No tag, GitHub Release,
-release date, or DOI is claimed until each is created and verified.
+or release date is claimed until each is created and verified. Zenodo DOI
+`10.5281/zenodo.21981112` is reserved but is not registered until the software
+record is published.
 
 ## Contents
 
@@ -53,3 +55,10 @@ The repository carries the existing Mulan Permissive Software License Version 2
 text. All five confirmed copyright holders have authorized its application to
 the project-authored files in this release. The license does not apply to MELD
 or third-party artifacts that are not distributed here.
+
+## Funding
+
+This work was supported by 武汉市2025年度重点研发计划, project number
+`2025020602030097`, project title “基于Deepseek的神经内科AI辅助诊疗系统”.
+The issuing agency is 武汉市科技创新局. The verified award information and
+English-name boundary are recorded in `FUNDING.md`.

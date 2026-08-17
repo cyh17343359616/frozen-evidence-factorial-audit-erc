@@ -1,13 +1,14 @@
 {
   "schema": "ieee_access_data_safe_release_candidate_v1",
-  "status": "PUBLIC_REPOSITORY_VERIFIED_READY_TO_TAG",
+  "status": "PUBLIC_REPOSITORY_VERIFIED_ZENODO_DOI_RESERVED_READY_TO_TAG",
   "publication_authorized": true,
   "remote_repository_created": true,
   "remote_repository_url": "https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc",
   "remote_visibility": "public",
   "public_repository_verified_on": "2026-08-17",
   "tag_created": false,
-  "archive_doi": null,
+  "archive_doi": "10.5281/zenodo.21981112",
+  "archive_doi_status": "reserved_not_registered",
   "creators": [
     "YUHAN CHEN",
     "SENNING WANG",
@@ -29,8 +30,18 @@
       "XIAOLEI LI"
     ]
   },
+  "funding": {
+    "support_relationship_confirmed": true,
+    "programme": "\u6b66\u6c49\u5e022025\u5e74\u5ea6\u91cd\u70b9\u7814\u53d1\u8ba1\u5212",
+    "project_number": "2025020602030097",
+    "project_title": "\u57fa\u4e8eDeepseek\u7684\u795e\u7ecf\u5185\u79d1AI\u8f85\u52a9\u8bca\u7597\u7cfb\u7edf",
+    "issuing_agency": "\u6b66\u6c49\u5e02\u79d1\u6280\u521b\u65b0\u5c40",
+    "responsible_institution": "\u6e56\u5317\u7701\u4eba\u6c11\u533b\u9662\uff08\u6b66\u6c49\u5927\u5b66\u4eba\u6c11\u533b\u9662\uff09",
+    "official_record_url": "https://kjj.wuhan.gov.cn/zwgk_8/fdzdnrgk/sjczzxzj/xmhzjap/202509/t20250917_2648782.shtml",
+    "official_english_name_confirmed": false
+  },
   "manuscript_binding": "MANUSCRIPT_BINDING.json",
-  "included_file_count_excluding_generated_inventory": 75,
+  "included_file_count_excluding_generated_inventory": 76,
   "files": [
     {
       "path": ".gitignore",
@@ -39,13 +50,18 @@
     },
     {
       "path": "CITATION.cff",
-      "bytes": 1181,
-      "sha256": "1022b2fa36b1726f9c38d16845ffedabb288f16f2b30da31bf7994ce37c42bcc"
+      "bytes": 1330,
+      "sha256": "bd78b868a26ec75b31aa78e8b45810526ec3019c12f113a849686b9208eac0a0"
     },
     {
       "path": "DATA_AVAILABILITY.md",
       "bytes": 1639,
       "sha256": "92573e642e60776839c86de62251082f77a8952a56931a753f73095007babe34"
+    },
+    {
+      "path": "FUNDING.md",
+      "bytes": 758,
+      "sha256": "22da0edaf49878cb3d4a8042a3a9ab825efedf7ee9faf0805d1462c1e63b4287"
     },
     {
       "path": "GITHUB_ZENODO_RELEASE_GUIDE.md",
@@ -69,18 +85,18 @@
     },
     {
       "path": "PUBLICATION_HOLD.md",
-      "bytes": 1424,
-      "sha256": "742bd423db1cc9bca2dd5020f909c9913c9ae3a9a1a888a01a8fb4ed786f3e51"
+      "bytes": 1532,
+      "sha256": "155880d01123cb6145b5eb6b201b7cd081cb5b69a5d89a2df204c4af16b7c98a"
     },
     {
       "path": "README.md",
-      "bytes": 3104,
-      "sha256": "2fa4c01b831492bb7d6db866f0a57ba95dea1841ce27ee7a663789821821b3d3"
+      "bytes": 3530,
+      "sha256": "415d102e27ea7f717d2de8aeafb8583900f92c5cde02db45495b848b981fc159"
     },
     {
       "path": "RELEASE_AUDIT.md",
-      "bytes": 2004,
-      "sha256": "a924354c3d3969ec5731c5112590a0342d7c6cb23aa345c2bc33c06e95224dfd"
+      "bytes": 2331,
+      "sha256": "615e29a56e4bda12ba4403424728342cefa3f78c51cfa322059cd329ca8700f8"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -404,8 +420,8 @@
     },
     {
       "path": "tools/build_release_manifest.py",
-      "bytes": 3849,
-      "sha256": "8134e85b75dcc81432dae63004ed1efa9a8b486f650f75b240d3f172d22abec8"
+      "bytes": 4562,
+      "sha256": "81e87699b241a7f07d8ea97e1d7b7f525f7b8fb3fe98bebe360a4f63b0166450"
     }
   ],
   "mandatory_exclusions": [
