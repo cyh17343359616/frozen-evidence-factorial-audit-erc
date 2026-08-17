@@ -10,8 +10,8 @@ The five software creators and joint copyright holders have authorized this
 data-safe inventory for public release under Mulan Permissive Software License
 Version 2. `PUBLICATION_HOLD.md` retains the closed authorization record and the
 boundary between authorization and objects that do not yet exist. The GitHub
-repository is currently private; no tag, GitHub Release, release date, or DOI is
-claimed until each is created and verified.
+repository is public and was verified on 2026-08-17. No tag, GitHub Release,
+release date, or DOI is claimed until each is created and verified.
 
 ## Contents
 

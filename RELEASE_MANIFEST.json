@@ -1,10 +1,11 @@
 {
   "schema": "ieee_access_data_safe_release_candidate_v1",
-  "status": "AUTHORIZED_PRIVATE_REMOTE_READY_FOR_PUBLICATION",
+  "status": "PUBLIC_REPOSITORY_VERIFIED_READY_TO_TAG",
   "publication_authorized": true,
   "remote_repository_created": true,
   "remote_repository_url": "https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc",
-  "remote_visibility": "private",
+  "remote_visibility": "public",
+  "public_repository_verified_on": "2026-08-17",
   "tag_created": false,
   "archive_doi": null,
   "creators": [
@@ -68,18 +69,18 @@
     },
     {
       "path": "PUBLICATION_HOLD.md",
-      "bytes": 1386,
-      "sha256": "9cfaf5de66c8f9ead900aa25908ee43f59c6e23f455bb1f6ff0b60b3685044e4"
+      "bytes": 1424,
+      "sha256": "742bd423db1cc9bca2dd5020f909c9913c9ae3a9a1a888a01a8fb4ed786f3e51"
     },
     {
       "path": "README.md",
-      "bytes": 3084,
-      "sha256": "c95cbffdbee9682089ffea2f9dc44b17882c7ecf164df09db45c460361595c3a"
+      "bytes": 3104,
+      "sha256": "2fa4c01b831492bb7d6db866f0a57ba95dea1841ce27ee7a663789821821b3d3"
     },
     {
       "path": "RELEASE_AUDIT.md",
-      "bytes": 1812,
-      "sha256": "00611652273d8d4d8508744b977f236189cee35b162b8ea2b9ca51ca7ded5f5a"
+      "bytes": 2004,
+      "sha256": "a924354c3d3969ec5731c5112590a0342d7c6cb23aa345c2bc33c06e95224dfd"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -403,8 +404,8 @@
     },
     {
       "path": "tools/build_release_manifest.py",
-      "bytes": 3803,
-      "sha256": "875dde0662e0ee13fe24a3a8f68cc4bbb9f04d4c05cd024e82affa975d2792db"
+      "bytes": 3849,
+      "sha256": "8134e85b75dcc81432dae63004ed1efa9a8b486f650f75b240d3f172d22abec8"
     }
   ],
   "mandatory_exclusions": [

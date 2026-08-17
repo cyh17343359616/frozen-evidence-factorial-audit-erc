@@ -20,8 +20,8 @@ The five software creators and joint copyright holders have confirmed that:
 3. The final release inventory and restricted-file exclusions are approved.
 
 ORCID is optional for the software archive and remains omitted. Repository URL,
-version, and license metadata may now be published. The Git repository exists
-privately at
+version, and license metadata may now be published. The Git repository is
+public and was independently verified on 2026-08-17 at
 `https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc`.
 The final release commit, tag, release date, and DOI must be recorded only after
 those objects actually exist and are independently verified.

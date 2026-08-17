@@ -51,11 +51,12 @@ def main() -> None:
     ]
     payload = {
         "schema": "ieee_access_data_safe_release_candidate_v1",
-        "status": "AUTHORIZED_PRIVATE_REMOTE_READY_FOR_PUBLICATION",
+        "status": "PUBLIC_REPOSITORY_VERIFIED_READY_TO_TAG",
         "publication_authorized": True,
         "remote_repository_created": True,
         "remote_repository_url": "https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc",
-        "remote_visibility": "private",
+        "remote_visibility": "public",
+        "public_repository_verified_on": "2026-08-17",
         "tag_created": False,
         "archive_doi": None,
         "creators": [

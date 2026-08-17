@@ -10,6 +10,10 @@ the approved inventory under Mulan Permissive Software License Version 2. The
 repository, tag, release, and DOI must still be verified as separate external
 objects before they are cited as existing.
 
+The public GitHub repository was verified on 2026-08-17 at
+`https://github.com/cyh17343359616/frozen-evidence-factorial-audit-erc`.
+No release tag or archive DOI existed at this audit point.
+
 ## Offline checks completed
 
 - Python syntax compilation passed for all included Python sources.
