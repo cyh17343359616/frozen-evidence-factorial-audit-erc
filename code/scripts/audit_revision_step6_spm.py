@@ -1,0 +1,323 @@
+#!/usr/bin/env python3
+"""Build the local Step 6 speaker/dialogue leakage gate and wording handoff."""
+
+from __future__ import annotations
+
+import csv
+import hashlib
+import json
+from collections import Counter, defaultdict, deque
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / "outputs/ieee_revision/step6_spm"
+FEATURES = ROOT / "datasets/MELD/features_v2"
+LABELS = ("neutral", "surprise", "fear", "sadness", "joy", "disgust", "anger")
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def load(kind: str, split: str) -> np.ndarray:
+    return np.asarray(np.load(FEATURES / f"{split}_{kind}.npy", mmap_mode="r", allow_pickle=False))
+
+
+def dialogue_speaker_components() -> list[dict[str, Any]]:
+    dialogue_ids = load("dialogue_ids", "train")
+    speakers = load("speakers", "train").astype(str)
+    labels = load("labels", "train")
+    adjacency: dict[str, set[str]] = defaultdict(set)
+    rows_by_dialogue: dict[int, list[int]] = defaultdict(list)
+    for index, (dialogue, speaker) in enumerate(zip(dialogue_ids, speakers)):
+        d_node = f"d:{int(dialogue)}"
+        s_node = f"s:{speaker}"
+        adjacency[d_node].add(s_node)
+        adjacency[s_node].add(d_node)
+        rows_by_dialogue[int(dialogue)].append(index)
+
+    seen: set[str] = set()
+    output: list[dict[str, Any]] = []
+    for start in sorted(adjacency):
+        if start in seen:
+            continue
+        queue = deque([start])
+        seen.add(start)
+        nodes: set[str] = set()
+        while queue:
+            node = queue.popleft()
+            nodes.add(node)
+            for neighbor in adjacency[node]:
+                if neighbor not in seen:
+                    seen.add(neighbor)
+                    queue.append(neighbor)
+        dialogues = sorted(int(node[2:]) for node in nodes if node.startswith("d:"))
+        component_speakers = sorted(node[2:] for node in nodes if node.startswith("s:"))
+        indices = [index for dialogue in dialogues for index in rows_by_dialogue[dialogue]]
+        counts = Counter(int(labels[index]) for index in indices)
+        output.append({
+            "component_id": len(output),
+            "dialogues": len(dialogues),
+            "speakers": len(component_speakers),
+            "utterances": len(indices),
+            "label_counts": {LABELS[label]: counts.get(label, 0) for label in range(len(LABELS))},
+            "dialogue_ids_sha256": hashlib.sha256(",".join(map(str, dialogues)).encode()).hexdigest(),
+            "speaker_ids_sha256": hashlib.sha256("\n".join(component_speakers).encode()).hexdigest(),
+        })
+    return sorted(output, key=lambda row: row["utterances"], reverse=True)
+
+
+def overlap_and_fallback() -> dict[str, Any]:
+    speakers = {split: load("speakers", split).astype(str) for split in ("train", "dev", "test")}
+    unique = {split: set(values.tolist()) for split, values in speakers.items()}
+    test_unseen_mask = np.asarray([speaker not in unique["train"] for speaker in speakers["test"]])
+    return {
+        "unique_speakers": {split: len(values) for split, values in unique.items()},
+        "train_dev_overlap": len(unique["train"] & unique["dev"]),
+        "train_test_overlap": len(unique["train"] & unique["test"]),
+        "test_seen_speaker_rows": int((~test_unseen_mask).sum()),
+        "test_global_fallback_rows": int(test_unseen_mask.sum()),
+        "test_global_fallback_speakers": len(unique["test"] - unique["train"]),
+    }
+
+
+def frozen_unseen_f1_fds() -> dict[str, Any]:
+    path = ROOT / "paper/generated/error_bucket_source.csv"
+    with path.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    row = next(row for row in rows if row["analysis"] == "Speaker" and row["bucket"] == "unseen")
+    return {
+        "source": str(path.relative_to(ROOT)),
+        "source_sha256": sha256(path),
+        "n_per_seed": int(row["n_per_seed"]),
+        "f1_fds": float(row["minority_f1"]),
+        "display_4dp": f"{float(row['minority_f1']):.4f}",
+        "scope": "post-hoc frozen A7 unseen-speaker bucket; descriptive only",
+    }
+
+
+def write_tex(payload: dict[str, Any]) -> Path:
+    path = ROOT / "paper/submission/source/generated/spm_step6_numbers.tex"
+    overlap = payload["speaker_overlap"]
+    unseen = payload["frozen_unseen_bucket"]
+    component = payload["dialogue_speaker_graph"]["components"][0]
+    seed_evidence = payload["step2_spm_seed_evidence"]["test_full"]
+    lines = [
+        "% AUTO-GENERATED by scripts/audit_revision_step6_spm.py.",
+        "% Sources: frozen metadata and existing machine-readable Step 30/33 evidence.",
+        f"\\newcommand{{\\SPMTrainTestOverlap}}{{{overlap['train_test_overlap']}}}",
+        f"\\newcommand{{\\SPMTestFallbackRows}}{{{overlap['test_global_fallback_rows']}}}",
+        f"\\newcommand{{\\SPMUnseenFDS}}{{{unseen['display_4dp']}}}",
+        f"\\newcommand{{\\SPMTrainGraphComponents}}{{{payload['dialogue_speaker_graph']['component_count']}}}",
+        f"\\newcommand{{\\SPMTrainGraphRows}}{{{component['utterances']}}}",
+        f"\\newcommand{{\\SPMMacroDeltaEight}}{{{seed_evidence['macro_f1']['mean_delta']:+.4f}}}",
+        f"\\newcommand{{\\SPMFDSDeltaEight}}{{{seed_evidence['f1_fds']['mean_delta']:+.4f}}}",
+        f"\\newcommand{{\\SPMMacroSignsEight}}{{{seed_evidence['macro_f1']['positive']}/{seed_evidence['macro_f1']['negative']}}}",
+        f"\\newcommand{{\\SPMFDSSignsEight}}{{{seed_evidence['f1_fds']['positive']}/{seed_evidence['f1_fds']['negative']}}}",
+    ]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return path
+
+
+def main() -> None:
+    OUT.mkdir(parents=True, exist_ok=True)
+    components = dialogue_speaker_components()
+    overlap = overlap_and_fallback()
+    unseen = frozen_unseen_f1_fds()
+    step0 = read_json(ROOT / "outputs/ieee_revision/step0_inventory/inventory.json")
+    step2 = read_json(ROOT / "outputs/ieee_revision/step2_seeds/gate.json")
+    step30 = read_json(ROOT / "outputs/phase3_ieee_access/step30_speaker_generalization/final_gate.json")
+    whole_graph_connected = len(components) == 1 and components[0]["utterances"] == len(load("labels", "train"))
+    legal_split_exists = not whole_graph_connected and len(components) >= 2
+
+    payload = {
+        "step": 6,
+        "status": "PASS_LOCAL_LEAKAGE_AUDIT",
+        "decision": "NO_GO_SPEAKER_HELD_OUT_TRAINING_COMPRESS_SPM",
+        "training_performed": False,
+        "server_contacted": False,
+        "new_test_inference": False,
+        "split_policy": {
+            "required": "nonempty train/dev partition with complete dialogues and disjoint speaker sets",
+            "row_deletion_allowed": False,
+            "dialogue_splitting_allowed": False,
+            "evaluation_task_redefinition_allowed": False,
+            "predeclared_split_seeds": [],
+            "reason_no_split_seeds": "no legal split exists, so seeded split search would only randomize an impossible or redefined task",
+        },
+        "dialogue_speaker_graph": {
+            "node_definition": "bipartite nodes prefixed d: for train dialogue_id and s: for exact train speaker string",
+            "component_count": len(components),
+            "components": components,
+            "all_train_rows_in_one_component": whole_graph_connected,
+        },
+        "leakage_gate": {
+            "dialogue_disjoint": False,
+            "speaker_disjoint": False,
+            "both_simultaneously_possible_on_fixed_complete_rows": legal_split_exists,
+            "passed": legal_split_exists,
+            "failure_reason": "the complete train dialogue-speaker bipartite graph is connected; assigning a complete dialogue forces all linked speakers and dialogues into the same side until all 9,925 rows are assigned",
+            "forbidden_workarounds": [
+                "drop bridge dialogues or speakers after inspecting labels",
+                "split a dialogue across train and development",
+                "evaluate only selected target-speaker utterances while calling the result a complete held-out split",
+                "reuse a speaker prototype built from rows outside the training subset",
+            ],
+        },
+        "speaker_overlap": overlap,
+        "frozen_unseen_bucket": unseen,
+        "step2_spm_seed_evidence": step2["matched_contrast_claims"]["speaker_prototype_memory"],
+        "existing_step30_boundary": {
+            "decision": step30["decision"],
+            "true_speaker_independent_protocol_completed": step30["true_speaker_independent_protocol_completed"],
+            "held_out_dev_protocol": step30["held_out_dev_protocol"],
+            "claim_policy": step30["claim_policy"],
+            "speaker_id_embedding_lookup_was_tested": False,
+            "id_permutation_is_not_embedding_lookup": True,
+            "global_only_is_not_unseen_speaker_adaptation": True,
+        },
+        "macro_f1_policy": {
+            "would_require_all_seven_labels": True,
+            "computed_for_new_split": False,
+            "reason": "no legal split was created",
+        },
+        "source_hashes": {
+            "step0_inventory": sha256(ROOT / "outputs/ieee_revision/step0_inventory/inventory.json"),
+            "step2_gate": sha256(ROOT / "outputs/ieee_revision/step2_seeds/gate.json"),
+            "step30_final_gate": sha256(ROOT / "outputs/phase3_ieee_access/step30_speaker_generalization/final_gate.json"),
+            **{
+                f"datasets/MELD/features_v2/{split}_{kind}.npy": sha256(FEATURES / f"{split}_{kind}.npy")
+                for split in ("train", "dev", "test") for kind in ("labels", "dialogue_ids", "speakers")
+            },
+        },
+        "step0_consistency": {
+            "inventory_status": step0["speaker_held_out"]["status"],
+            "component_count_matches": step0["speaker_held_out"]["train_dialogue_speaker_connected_components"] == len(components),
+            "largest_component_rows_matches": step0["speaker_held_out"]["largest_train_component_rows"] == components[0]["utterances"],
+        },
+        "paper_policy": {
+            "route": "compression",
+            "must_report": ["69 train-test speaker overlap", "109 global-fallback test rows", "descriptive unseen-bucket F1_FDS 0.2571"],
+            "must_not_claim": [
+                "speaker-independent evaluation",
+                "speaker-generalization improvement",
+                "effective adaptation to unseen speakers",
+                "controlled superiority over speaker-ID embedding lookup",
+                "SPM as a universal contribution comparable to supported masking evidence",
+            ],
+        },
+    }
+    write_json(OUT / "split_feasibility.json", payload)
+    tex_path = write_tex(payload)
+
+    report = f"""# Step 6 SPM compression report
+
+The leakage gate is **No-Go**. The fixed train dialogue--speaker bipartite graph has {len(components)} connected component covering {components[0]['dialogues']} dialogues, {components[0]['speakers']} speakers, and {components[0]['utterances']:,} utterances. A nonempty partition cannot simultaneously preserve complete dialogues and make all speakers disjoint without deleting rows or redefining the task.
+
+No split seeds were declared because there is no legal split search space. No class distribution or Macro F1 was computed for a fabricated split. No Slurm files were created, no server was contacted, and no training or new test inference occurred.
+
+The retained descriptive evidence is bounded: train/test share {overlap['train_test_overlap']} speaker strings; {overlap['test_global_fallback_rows']} test rows use the single training-global fallback; the existing post-hoc unseen bucket has F1_FDS {unseen['display_4dp']}. Global-mean routing is a fallback behavior, not evidence of effective unseen-speaker adaptation. The existing ID-permutation stress is not a trained speaker-ID embedding lookup, so SPM versus speaker-ID lookup remains uncontrolled.
+
+Step 2's A0--A4 signs vary across the eight preregistered seeds for every reported metric. SPM therefore remains a MELD-specific experimental component, not a general speaker-modeling contribution.
+
+Machine source: `{(OUT / 'split_feasibility.json').relative_to(ROOT)}`. Manuscript macros: `{tex_path.relative_to(ROOT)}`.
+"""
+    (OUT / "compression_report.md").write_text(report, encoding="utf-8")
+
+    gate = {
+        "step": 6,
+        "status": "complete",
+        "decision": payload["decision"],
+        "legal_split_exists": legal_split_exists,
+        "leakage_gate_passed": legal_split_exists,
+        "route": "compression",
+        "training_performed": False,
+        "server_contacted": False,
+        "new_test_inference": False,
+        "split_seeds": [],
+        "graph_components": len(components),
+        "largest_component_utterances": components[0]["utterances"],
+        "train_test_speaker_overlap": overlap["train_test_overlap"],
+        "test_global_fallback_rows": overlap["test_global_fallback_rows"],
+        "descriptive_unseen_f1_fds": unseen["f1_fds"],
+        "speaker_id_embedding_lookup_controlled": False,
+        "global_mean_fallback_validated_as_adaptation": False,
+        "machine_evidence": {
+            "split_feasibility": "outputs/ieee_revision/step6_spm/split_feasibility.json",
+            "compression_report": "outputs/ieee_revision/step6_spm/compression_report.md",
+            "generated_numbers": "paper/submission/source/generated/spm_step6_numbers.tex",
+        },
+        "forbidden_wording": payload["paper_policy"]["must_not_claim"],
+        "paper_edited": False,
+        "latex_compile": "pending",
+    }
+    write_json(OUT / "gate.json", gate)
+
+    handoff = f"""# IEEE Access revision Step 6 handoff
+
+## Decision
+
+Step 6 is complete with `NO_GO_SPEAKER_HELD_OUT_TRAINING_COMPRESS_SPM`. No legal fixed-row development split exists that is both dialogue-disjoint and speaker-disjoint: the training dialogue--speaker graph is one connected component containing all {components[0]['utterances']:,} utterances. No split seed, Slurm runner, server job, training, checkpoint, prototype, prediction, or new test result was created.
+
+## Retained evidence
+
+- Train/test speaker-string overlap: {overlap['train_test_overlap']}.
+- Test rows routed to the single global-mean fallback: {overlap['test_global_fallback_rows']}.
+- Existing post-hoc unseen-speaker bucket: F1_FDS {unseen['display_4dp']} over {unseen['n_per_seed']} rows per seed; descriptive only.
+- Step 2 A0--A4 signs vary across seeds 42--49 for Accuracy, weighted F1, Macro F1, and F1_FDS.
+- The Step 30 ID-permutation diagnostic is not a trained speaker-ID embedding lookup; that comparison remains uncontrolled.
+
+## Mandatory wording boundary
+
+SPM may be described only as a MELD-specific experimental memory with train-only prototype construction, identity-keyed retrieval for covered speakers, and a global-mean fallback for uncovered speaker strings. The fallback is routing behavior, not demonstrated adaptation. Do not use `speaker-independent`, `speaker-generalizing`, `effective for unseen speakers`, `validated against speaker-ID lookup`, or present SPM alongside masking as a universal contribution.
+
+## Evidence paths
+
+- `outputs/ieee_revision/step6_spm/split_feasibility.json`
+- `outputs/ieee_revision/step6_spm/compression_report.md`
+- `outputs/ieee_revision/step6_spm/gate.json`
+- `paper/submission/source/generated/spm_step6_numbers.tex`
+- `outputs/ieee_revision/step2_seeds/gate.json`
+- `outputs/phase3_ieee_access/step30_speaker_generalization/final_gate.json`
+- `paper/generated/error_bucket_source.csv`
+
+Reproduce locally with:
+
+```bash
+python3 -m py_compile scripts/audit_revision_step6_spm.py
+python3 scripts/audit_revision_step6_spm.py
+cd paper/submission/source
+latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+```
+"""
+    (OUT / "handoff.md").write_text(handoff, encoding="utf-8")
+    print(json.dumps({
+        "decision": payload["decision"],
+        "legal_split_exists": legal_split_exists,
+        "components": len(components),
+        "largest_component_rows": components[0]["utterances"],
+        "train_test_overlap": overlap["train_test_overlap"],
+        "test_fallback_rows": overlap["test_global_fallback_rows"],
+    }, indent=2))
+
+
+if __name__ == "__main__":
+    main()

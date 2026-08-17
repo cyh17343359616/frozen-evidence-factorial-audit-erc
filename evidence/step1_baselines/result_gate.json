@@ -1,0 +1,29 @@
+{
+  "step": 1,
+  "stage": "test",
+  "status": "complete",
+  "decision": "FORMAL_RESULTS_READY_FOR_LOCAL_MIRROR_AUDIT",
+  "models": [
+    "text_only_mlp",
+    "video_only_mlp",
+    "concat_mlp",
+    "turn_crossattention"
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "scenarios": [
+    "full",
+    "missing_video"
+  ],
+  "selection_split": "dev",
+  "selection_metric": "weighted_f1",
+  "test_used_for_selection": false,
+  "test_inference_passes_per_checkpoint_scenario": 1,
+  "test_prediction_rows": 103720,
+  "created_at": "2026-08-11T15:02:50.713698+00:00"
+}

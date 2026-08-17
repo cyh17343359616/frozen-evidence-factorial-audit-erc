@@ -1,0 +1,17 @@
+{
+  "schema": "ieee_access_release_manuscript_binding_v1",
+  "binding_date": "2026-08-17",
+  "manuscript_source": {
+    "distributed": false,
+    "internal_path": "paper/submission/source/main.tex",
+    "bytes": 61716,
+    "sha256": "75269467ef119294164352cb5fddb3f54fa38017f6545ca6903da506d9f94f3e"
+  },
+  "compiled_pdf": {
+    "distributed": false,
+    "internal_path": "paper/submission/source/main.pdf",
+    "bytes": 822317,
+    "sha256": "bcb13ba2addb38420cb0917447e94ab0da2113cc1d961fd046e1cbce8e0059ac"
+  },
+  "scope": "Binds this code candidate to the audited manuscript without redistributing manuscript source, author metadata, or author photograph."
+}

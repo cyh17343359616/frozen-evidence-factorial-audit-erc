@@ -1,0 +1,6 @@
+# Minimal Step 17 packaging and manuscript-build requirements.
+# Versions are the locally verified environment, not a cross-platform lockfile.
+Python==3.14.3
+latexmk==4.88
+pdfTeX==3.141592653-2.6-1.40.29
+rsvg-convert==2.62.0

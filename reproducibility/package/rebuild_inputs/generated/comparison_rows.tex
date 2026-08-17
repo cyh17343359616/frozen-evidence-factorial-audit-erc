@@ -1,0 +1,6 @@
+Reported & MMDAG & text+video & RoBERTa-Large 1024 + DenseNet & 63.49 & Not comparable \\
+Reported & TelME & text+video & modified RoBERTa mask-token encoder + TimeSformer; shifting fusion & 67.05 & Not comparable \\
+Reported & MultiDAG+CL & text+video & author features 1024 text + 342 visual & 63.62 & Not comparable \\
+Proxy & Text-feature MLP proxy (cached Qwen features) & text & Cached Qwen features & 63.35 $\pm$ 0.31 & In-repository \\
+Proxy & DialogueRNN-style GRU (in-repository proxy) & text+video & Cached Qwen features & 64.26 $\pm$ 0.10 & In-repository \\
+Proxy & MISA-style shared/private (in-repository proxy) & text+video & Cached Qwen features & 64.28 $\pm$ 0.23 & In-repository \\

@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite the archived software release identified
+  in the repository after publication.
+title: Frozen-Evidence Factorial Audit for Multimodal ERC
+type: software
+authors:
+  - given-names: YUHAN
+    family-names: CHEN
+    affiliation: School of Remote Sensing and Information Engineering, Wuhan University, Wuhan, Hubei, 430079, China
+  - given-names: SENNING
+    family-names: WANG
+    affiliation: College of Information Engineering, Northwest A&F University, Xianyang, Shaanxi Province, 712100, China
+  - given-names: YANGGE
+    family-names: TIAN
+    affiliation: School of Remote Sensing and Information Engineering, Wuhan University, Wuhan, Hubei, 430079, China
+  - given-names: JIANGUANG
+    family-names: TU
+    affiliation: School of Remote Sensing and Information Engineering, Wuhan University, Wuhan, Hubei, 430079, China
+  - given-names: XIAOLEI
+    family-names: LI
+    affiliation: School of Remote Sensing and Information Engineering, Wuhan University, Wuhan, Hubei, 430079, China

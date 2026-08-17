@@ -1,0 +1,27 @@
+{
+  "source_step": "README 14.2 Step 6",
+  "source_results": "server_results/context_validated_relations/step6_results.json",
+  "decision": "speaker_distance_only",
+  "rationale": "validated_relation_diag did not exceed speaker_distance_best on dev main metrics, rare emotion buckets, or long dialogue buckets.",
+  "mainline": {
+    "structure_mode": "speaker_distance",
+    "context_len": 5,
+    "context_max_distance": 20,
+    "structure_gate_scale": 0.5,
+    "relation_dropout": 0.2,
+    "relation_embedding_init_std": 0.01,
+    "use_validated_relations_for_training": false,
+    "validated_relations_role": "diagnostic_and_error_analysis_only"
+  },
+  "do_not_use_as_mainline": {
+    "structure_mode": "validated_relations",
+    "reason": "No independent contribution was observed under the controlled Step 6 comparison."
+  },
+  "step6_metrics": {
+    "speaker_distance_best_dev_weighted_f1": 0.659153469233665,
+    "speaker_distance_best_dev_macro_f1": 0.5277502037668965,
+    "validated_relation_diag_dev_weighted_f1": 0.6460987216535432,
+    "validated_relation_diag_dev_macro_f1": 0.4909313255543741,
+    "validated_independent_value": false
+  }
+}

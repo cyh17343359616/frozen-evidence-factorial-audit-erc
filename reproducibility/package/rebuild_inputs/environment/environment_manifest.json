@@ -1,0 +1,59 @@
+{
+  "step33_measurement": {
+    "captured_at": "2026-08-03T23:39:52",
+    "hardware": {
+      "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+      "machine": "arm64",
+      "model_name": "MacBook Air",
+      "model_identifier": "Mac17,3",
+      "chip": "Apple M5",
+      "total_number_of_cores": "10 (4 Performance and 6 Efficiency)",
+      "memory": "16 GB"
+    },
+    "python": "3.14.3 (v3.14.3:323c59a5e34, Feb  3 2026, 11:41:37) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "torch": "2.12.0",
+    "numpy": "2.4.3",
+    "psutil": "7.2.2",
+    "device": "cpu",
+    "cuda_available": false
+  },
+  "phase2_final_training": {
+    "python": "3.10.20",
+    "device": "cuda",
+    "gpu": "Tesla V100-SXM2-16GB",
+    "driver": "575.57.08",
+    "reported_cuda": "12.9",
+    "node": "g0118",
+    "evidence": "server_results/phase2_sensitivity/logs/phase2_step20b_confirm_3029175.out",
+    "torch_version": "unavailable_in_archived_final_run_evidence",
+    "peak_gpu_memory": "unavailable",
+    "conda_lockfile": "unavailable",
+    "epochs_cap": 20,
+    "early_stopping_patience": 5,
+    "note": "This is the archived final run environment, not the prior thesis AutoDL/50-epoch environment."
+  },
+  "current_source_hashes": {
+    "src/data/feature_extractor_v2.py": "ba6edb8c498c1955ae164ba40b3616af0b82710b42da5f6015d9f92f2e227d22",
+    "src/training/train.py": "606508d0a460f90b290ff9c143fafe560b78b410f33d30591a1ddbcf3ab41563",
+    "src/models/fusion_model.py": "8daaa0890e3075bfbf48beca3dd675adcf58968bf733a8453341c32be43dfa26"
+  },
+  "step27_recorded_source_hashes": {
+    "src/data/feature_extractor_v2.py": "ba6edb8c498c1955ae164ba40b3616af0b82710b42da5f6015d9f92f2e227d22",
+    "src/training/train.py": "7a3d99df466c4ff97ed7172b62364e7bcec8e4df02f4176314c99683ee8a74eb",
+    "src/models/fusion_model.py": "8daaa0890e3075bfbf48beca3dd675adcf58968bf733a8453341c32be43dfa26"
+  },
+  "source_binding_note": "Current train.py differs from the Step 27 recorded hash; checkpoints strict-load, but byte-identical historical training source remains unverified.",
+  "step17_rebuild": {
+    "captured_at": "2026-08-17",
+    "scope": "packaging and LaTeX rebuild only; no training, inference, server connection, or row-level test access",
+    "python": "3.14.3",
+    "latexmk": "4.88",
+    "pdftex": "3.141592653-2.6-1.40.29 (TeX Live 2026)",
+    "rsvg_convert": "2.62.0",
+    "rebuild_semantics": "byte-identical verified copy from non-row-level frozen-derived assets",
+    "numerical_recomputation_semantics": "NO_GO in standalone package because restricted MELD-derived inputs are excluded",
+    "dependency_snapshot": "supplementary/reproducibility/requirements_rebuild.txt",
+    "full_environment_snapshot": "supplementary/reproducibility/requirements_frozen.txt",
+    "cross_platform_byte_identity": "TeX text assets are byte-verified; newly rendered PDF bytes are not promised across TeX/rasterizer versions"
+  }
+}
